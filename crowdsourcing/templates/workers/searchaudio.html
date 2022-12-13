@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h4>Audio results</h4>
+    {% if audio_data %}
+    {% for data in audio_data %}
+    <div class="card">
+        <div class="card-body">
+            <p>{{ data.audio_name }}</p>
+            <p>{{ data.audio_file }}</p>
+            <p>{{ data.tag }}</p>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p style="color: red;">No audios available for the searched tag or language</p>
+    {% endif %}
+</div>
+
+{% endblock %}

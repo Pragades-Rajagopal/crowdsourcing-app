@@ -20,5 +20,6 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('workers/', include('workers.urls')), ### including all the workers app urls to main project
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) ###
+    # including all the workers app urls to main project
+    path('app/', include('workers.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

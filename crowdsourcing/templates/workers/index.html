@@ -4,6 +4,17 @@
 
 <div class="container">
     <h4>Welcome to the crowdsourcing application</h4>
+    <form action="{% url 'workers:searchaudio' %}" method="post">
+        {% csrf_token %}
+        <input class="input-text" type="text" name="audio_tag" placeholder="Select the tag/language to start"
+            list="audio_list" size="30px">
+        <datalist id="audio_list">
+            {% for data in audio_tags %}
+            <option value="{{ data.tags}}">{{ data.tags }}</option>
+            {% endfor %}
+        </datalist>
+        <button type="submit" class="btn-search">Search</button>
+    </form>
 </div>
 
 {% endblock %}
