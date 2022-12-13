@@ -5,3 +5,4 @@ lib64
 bin
 __pycache__
 migrations
+pyvenv.cfg

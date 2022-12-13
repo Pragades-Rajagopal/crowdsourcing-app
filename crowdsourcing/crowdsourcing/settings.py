@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'workers.apps.WorkersConfig', ### added workers app here
+    'workers.apps.WorkersConfig',  # added workers app here
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,7 +56,7 @@ ROOT_URLCONF = 'crowdsourcing.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],   ### added templates dir
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # added templates dir
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,7 +92,6 @@ DATABASES = {
 #         'PORT': '5432',
 #     }
 # }
-
 
 
 # Password validation
@@ -131,11 +130,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-### added static dir to settings
+# added static dir to settings
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-### added media dir to settings
+# added media dir to settings
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -143,3 +142,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# added for codespaces to allow CSRF verification
+CSRF_TRUSTED_ORIGINS = ['https://*.github.dev/']
