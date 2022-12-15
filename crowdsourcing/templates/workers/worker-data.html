@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h4>Workers data</h4>
+    {% if results %}
+    {% for d in results %}
+    <div class="card">
+        <div class="card-body">
+            <p>{{ d.data.username }}</p>
+            <p>{{ d.data.data }}</p>
+            <p>{{ d.audio_name }}</p>
+            <p>{{ d.data.created_at }}</p>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p style="color: red;">No audios available for the searched tag or language</p>
+    {% endif %}
+</div>
+
+{% endblock %}

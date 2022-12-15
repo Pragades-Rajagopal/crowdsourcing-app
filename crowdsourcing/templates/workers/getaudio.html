@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <br><br>
+    <form action="{% url 'workers:postdata' %}" method="post">
+        <h4>Audio : {{ audio_data.audio_name }}</h4>
+        <h6>Tag : {{ audio_data.tag }}</h6>
+        <br>
+        <audio controls>
+            <source src="../../media/{{ audio_data.audio_file }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <br><br>
+        {% csrf_token %}
+        <p><input class="input-text" type="text" name="username" placeholder="Enter your username" required></p>
+        <p><textarea name="trans_data" cols="80" rows="16" placeholder="Transcribe here..." required></textarea></p>
+        <input name="audio_id" value="{{ audio_data.id }}" hidden>
+        <button type="submit" class="btn-search">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

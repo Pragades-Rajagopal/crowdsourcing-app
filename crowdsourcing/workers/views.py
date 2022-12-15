@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from .models import Audios, Transcribe
+import datetime
 
 
 def index(request):
@@ -21,3 +22,28 @@ def searchaudio(request):
         raise Http404('Audios not available for the given audio tag')
 
     return render(request, 'workers/searchaudio.html', {'audio_data': audio_data})
+
+
+def getaudio(request, audio_id):
+    audio = get_object_or_404(Audios, pk=audio_id)
+    return render(request, 'workers/getaudio.html', {'audio_data': audio})
+
+
+def postdata(request):
+    username = request.POST.get('username')
+    data = request.POST.get('trans_data')
+    audio_id = request.POST.get('audio_id')
+    current_time = datetime.datetime.now()
+    inputs = Transcribe(username=username, data=data,
+                        created_at=current_time, audio_id=audio_id)
+    inputs.save()
+    return render(request, 'workers/thanks.html')
+
+
+def transcribe_data(request):
+    data = Transcribe.objects.all()
+    results = []
+    for i in range(0, data.count()):
+        audio_name = Audios.objects.get(pk=data[i].audio_id)
+        results.append({'audio_name': audio_name, 'data': data[i]})
+    return render(request, 'workers/worker-data.html', {'results': results})
