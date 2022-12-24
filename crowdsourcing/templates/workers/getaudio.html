@@ -14,10 +14,18 @@
         </audio>
         <br><br>
         {% csrf_token %}
-        <p><input class="input-text" type="text" name="username" placeholder="Enter your username" required></p>
-        <p><textarea name="trans_data" cols="80" rows="16" placeholder="Transcribe here..." required></textarea></p>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+            <input type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default" name="username" required>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Transcribe here</span>
+            <textarea type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default" name="trans_data" cols="80" rows="16" required></textarea>
+        </div>
         <input name="audio_id" value="{{ audio_data.id }}" hidden>
-        <button type="submit" class="btn-search">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
 

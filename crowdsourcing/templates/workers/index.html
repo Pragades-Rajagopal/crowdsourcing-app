@@ -3,17 +3,20 @@
 {% block content %}
 
 <div class="container">
-    <h4>Welcome to the crowdsourcing application</h4>
+    <h5 style="padding-top: 100px;">Get started ...</h5>
     <form action="{% url 'workers:searchaudio' %}" method="post">
         {% csrf_token %}
-        <input class="input-text" type="text" name="audio_tag" placeholder="Select the tag/language to start"
-            list="audio_list" size="30px">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Select tag/language</span>
+            <input type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default" name="audio_tag" list="audio_list" size="30px" required>
+        </div>
         <datalist id="audio_list">
             {% for data in audio_tags %}
             <option value="{{ data.tags}}">{{ data.tags }}</option>
             {% endfor %}
         </datalist>
-        <button type="submit" class="btn-search">Search</button>
+        <button type="submit" class="btn btn-primary">Search</button>
     </form>
 </div>
 

@@ -8,14 +8,16 @@
     {% for data in audio_data %}
     <div class="card">
         <div class="card-body">
-            <p><a href="{% url 'workers:getaudio' data.id %}">{{ data.audio_name }}</a></p>
-            <p>{{ data.tag }}</p>
+            <p><a class="card-link" href="{% url 'workers:getaudio' data.id %}">{{ data.audio_name }}</a></p>
+            <p style="font-style: italic;">{{ data.tag }}</p>
         </div>
     </div>
     {% endfor %}
     {% else %}
     <p style="color: red;">No audios available for the searched tag or language</p>
     {% endif %}
+    <br>
+    <a href="/app" class="btn btn-secondary">Home</a>
 </div>
 
 {% endblock %}
