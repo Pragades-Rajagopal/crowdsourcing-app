@@ -3,18 +3,36 @@
 {% block content %}
 
 <div class="container">
+    <a href="/app/exportdata">Export Data</a>
     <h4>Workers data</h4>
     {% if results %}
-    {% for d in results %}
-    <div class="card">
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Transcribed data</th>
+            <th>Transcribed data after</th>
+            <th>Audio name</th>
+            <th>Created at</th>
+        </tr>
+        {% for d in results %}
+        <!-- <div class="card">
         <div class="card-body">
             <p>{{ d.data.username }}</p>
             <p>{{ d.data.data }}</p>
             <p>{{ d.audio_name }}</p>
             <p>{{ d.data.created_at }}</p>
         </div>
-    </div>
-    {% endfor %}
+    </div> -->
+        <tr>
+            <td>{{ d.data.username }}</td>
+            <td>{{ d.data.data }}</td>
+            <td>{{ d.data.data2 }}</td>
+            <td>{{ d.audio_name }}</td>
+            <td>{{ d.data.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
     {% else %}
     <p style="color: red;">No audios available for the searched tag or language</p>
     {% endif %}

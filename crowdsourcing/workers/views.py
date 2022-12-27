@@ -1,7 +1,13 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from .models import Audios, Transcribe
 import datetime
+from pathlib import Path
+import os
+import csv
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+EXPORT_PATH = os.path.join(BASE_DIR, 'exports')
 
 
 def index(request):
@@ -37,7 +43,18 @@ def postdata(request):
     inputs = Transcribe(username=username, data=data,
                         created_at=current_time, audio_id=audio_id)
     inputs.save()
-    return render(request, 'workers/thanks.html')
+    sample_transcribed_data = Transcribe.objects.filter(
+        audio_id=audio_id).order_by('-id')[1:10]
+    return render(request, 'workers/thanks.html', {'data': sample_transcribed_data, 'input': data, 'trans_id': inputs.id})
+
+
+def postnextdata(request):
+    id = request.POST.get('trans_id')
+    data = request.POST.get('trans_data2')
+    t = Transcribe.objects.get(pk=id)
+    t.data2 = data
+    t.save()
+    return render(request, 'workers/final.html')
 
 
 def transcribe_data(request):
@@ -47,3 +64,17 @@ def transcribe_data(request):
         audio_name = Audios.objects.get(pk=data[i].audio_id)
         results.append({'audio_name': audio_name, 'data': data[i]})
     return render(request, 'workers/worker-data.html', {'results': results})
+
+
+def exportData(request):
+    data = Transcribe.objects.all()
+    response = HttpResponse('text/csv')
+    response['Content-Disposition'] = 'attachment; filename=export.csv'
+    writer = csv.writer(response)
+    writer.writerow(['Username', 'Transcribed data',
+                    'Transcribed data after', 'Created at'])
+    tdata = data.values_list('username', 'data', 'data2',
+                             'created_at')
+    for t in tdata:
+        writer.writerow(t)
+    return response

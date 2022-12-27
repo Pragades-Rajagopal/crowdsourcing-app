@@ -2,6 +2,19 @@ body {
     background-color: hsl(28, 100%, 86%, 50%);
 }
 
+.container-mainpage {
+    width: 1000px;
+    height: 500px;
+    margin: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainpage-content {
+    text-align: center;
+}
+
 .navbar {
     background-color: aliceblue !important;
 }
@@ -29,4 +42,21 @@ body {
 
 .card-link:hover {
     text-decoration: underline;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
 }

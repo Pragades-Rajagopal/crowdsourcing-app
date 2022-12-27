@@ -3,7 +3,33 @@
 {% block content %}
 
 <div class="container">
+    {% csrf_token %}
     <h5>Thanks for submitting data!</h5>
+    <p>These are the last 10 entries submitted by others</p>
+    {% for d in data %}
+    <div class="card">
+        <div class="card-body">
+            {% if d.data2 %}
+            {{ d.data2 }}
+            {% else %}
+            {{ d.data }}
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+    <br>
+    <p>Would you like to submit again?</p>
+    <form action="{% url 'workers:postnextdata' %}" method="post">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Transcribe here</span>
+            <textarea type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default" name="trans_data2" cols="80" rows="16"
+                required>{{ input }}</textarea>
+        </div>
+        <input name="trans_id" value="{{ trans_id }}" hidden>
+        <button type="submit" class="btn btn-primary">Submit data again</button>
+    </form>
     <a class="btn btn-secondary" href="{% url 'workers:index' %}">Go Home</a>
 </div>
 

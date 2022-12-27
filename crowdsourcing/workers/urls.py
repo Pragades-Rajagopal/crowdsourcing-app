@@ -8,4 +8,6 @@ urlpatterns = [
     path('getaudio/<int:audio_id>', views.getaudio, name='getaudio'),
     path('postdata/', views.postdata, name='postdata'),
     path('workers-data/', views.transcribe_data, name='workers-data'),
+    path('postdata-final/', views.postnextdata, name='postnextdata'),
+    path('exportdata/', views.exportData)
 ]
